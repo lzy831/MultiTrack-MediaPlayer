@@ -1,0 +1,80 @@
+// PlayerAtx.idl : ActiveX 控件项目的类型库源。
+
+// 此文件将由 MIDL 编译器工具处理以
+// 产生类型库(PlayerAtx.tlb)，该类型库将成为
+// PlayerAtx.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(E03F97A5-5360-452B-8234-0B15E1EE1C7D), version(1.0),
+  control ]
+library PlayerAtxLib
+{
+	importlib(STDOLE_TLB);
+
+	//  CPlayerAtxCtrl 的主调度接口
+	[ 
+		uuid(13051A81-92AD-45D1-BFF2-DD462FF4C4EC)	
+	]
+	dispinterface _DPlayerAtx
+	{
+		properties:
+		methods:
+			[id(0)] LONG PlayAdd(BSTR Url);
+			[id(1)] LONG PlayStart(LONG Index);
+			[id(2)] LONG PlayStop(void);
+			[id(3)] LONG PlaySeek(LONG Pts);
+			[id(4)] LONG PlayTogglePause(void);
+			[id(5)] LONG PlayToggleFullScreen(void);
+			[id(6)] LONG GetVideoCount(void);
+			[id(7)] LONG GetAudioCount(void);
+			[id(8)] LONG GetDuration(void);
+			[id(9)] LONG EnableAudio(LONG AudioIndex, LONG Enable);
+			[id(10)] LONG EnableVideo(LONG VideoIndex, LONG Enable);
+			[id(11)] LONG PriorVideo(LONG VideoIndex);
+			[id(12)] LONG AudioStatus(LONG AudioIndex);
+			[id(13)] LONG VideoStatus(LONG VideoIndex);
+			[id(14)] LONG SetVolume(LONG volume);
+			[id(15)] LONG GetVolume(void);
+			[id(16)] LONG SetViewPortCount(LONG Count);
+			[id(17)] LONG SetViewWindowMode(LONG Mode);
+			[id(18)] LONG SetDisplayMode(LONG Mode);
+			[id(19)] LONG EnableAutoDirector(LONG Enable);
+			[id(20)] LONG PlayClearList(void);
+			[id(21)] LONG ScreenShot(void);
+	};
+
+	//  CPlayerAtxCtrl 的事件调度接口
+
+	[ 
+		uuid(3BB4CB3B-2338-419B-AC68-276C1C0A6688)	
+	]
+	dispinterface _DPlayerAtxEvents
+	{
+		properties:
+			//  事件接口没有任何属性
+
+		methods:
+			[id(1)] void EventOnPlayTimeUpdate(LONG time);
+			[id(2)] void EventOnPlayStarted(void);
+			[id(3)] void EventOnPlayStoped(void);
+			[id(4)] void EventOnPlayPaused(void);
+			[id(5)] void EventOnPlayToEnd(void);
+			[id(6)] void EventOnScreenChanged(LONG mode);
+			[id(7)] void EventOnVolumeChanged(LONG NewVolume);
+			[id(8)] void EventOnAudioChanged(LONG AudioIndex, LONG TrackID, LONG Status);
+			[id(9)] void EventOnVideoChanged(LONG VideoIndex, LONG TrackID, LONG Status);
+			[id(10)] void EventOnOpeningMedia(void);
+	};
+
+	//  CPlayerAtxCtrl 的类信息
+	[
+		uuid(8983D1AE-5D45-4810-9109-EC257CFF7F97)
+	]
+	coclass PlayerAtx
+	{
+		[default] dispinterface _DPlayerAtx;
+		[default, source] dispinterface _DPlayerAtxEvents;
+	};
+};
